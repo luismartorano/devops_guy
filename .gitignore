@@ -1,0 +1,19 @@
+c#/src/bin/
+c#/src/obj/
+node_modules/
+__pycache__/
+*.pem
+*.csr
+# terraform
+.terraform
+*.tfstate
+*.tfstate.*
+security/letsencrypt/introduction/certs/**
+kubernetes/shipa/installs/shipa-helm-chart-1.1.1/
+messaging/kafka/data/*
+kubernetes/portainer/volume*
+kubernetes/rancher/volume/*
+kubernetes/portainer/business/volume*
+
+#ignore postgres data for sample and database tutorials
+pgdata

@@ -1,0 +1,58 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Docker Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [ "exec", "-i", "csharp" ],
+                "debuggerPath": "/root/vsdbg/vsdbg",
+                "pipeCwd": "${workspaceRoot}",
+                "quoteArgs": false
+            },
+            "sourceFileMap": {
+                "/work": "${workspaceRoot}/c#/src/"
+            }
+        },
+        {
+            "name": "Remote Docker",
+            "type": "go",
+            "request": "launch",
+            "mode": "remote",
+            "remotePath":"/go/src/work/",
+            "port": 2345,
+            "host": "127.0.0.1",
+            "program": "${workspaceFolder}/golang/src/",
+            "args": [],
+            "trace" : "verbose",
+            "env" : {}
+        },
+        {
+            "name": "Python Attach",
+            "type": "python",
+            "request": "attach",
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/python/src/",
+                    "remoteRoot": "/work"
+                }
+            ],
+            "port": 5678,
+            "host": "127.0.0.1"
+        },
+        {
+            "name": "Docker: Attach to Node",
+            "type": "node",
+            "request": "attach",
+            "remoteRoot": "/work/src/",
+            "port": 9229,
+            "address": "localhost",
+            "localRoot": "${workspaceFolder}/nodejs/src/",
+            "protocol": "inspector",
+            "restart": true
+        }
+    ]
+}
