@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: 'true'
+        vault.hashicorp.com/role: 'webapp'
+        vault.hashicorp.com/agent-pre-populate-only: 'true'
+        vault.hashicorp.com/tls-skip-verify: "true"
+        vault.hashicorp.com/agent-inject-secret-database-config: 'kv/dev/apps/service01'
+        vault.hashicorp.com/agent-inject-template-database-config: |
+          {{ with secret "kv/dev/apps/service01" -}}
+            export appkey="{{ .Data.data.appkey }}"
+            export apptoken="{{ .Data.data.apptoken }}"
+          {{- end }}
+      labels:
+        app: nginx
+    spec:
+      serviceAccountName: vault-auth
+      containers:
+        - name: nginx
+          image: ubuntu:latest
+          command: ["/bin/bash"]
+          args:
+            ['-c', 'source /vault/secrets/database-config && env > /vault/secrets/test && tail -f /dev/null']

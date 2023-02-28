@@ -28,10 +28,10 @@ server:
   resources:
     requests:
       memory: 50Mi
-      cpu: 500m
+      cpu: 300m
     limits:
-      memory: 16Gi
-      cpu: 2000m
+      memory: 8Gi
+      cpu: 1000m
 
   # For HA configuration and because we need to manually init the vault,
   # we need to define custom readiness/liveness Probe settings
