@@ -68,3 +68,8 @@ export TF_VAR_kubernetes_host=
 terraform import vault_kubernetes_auth_backend_config.example auth/kubernetes/config
 ```
 
+Fonte:
+
+Podemos utilizar como referência:
+
+https://verifa.io/blog/secrets-handling-in-kubernetes-using-hashicorp-vault/index.html
