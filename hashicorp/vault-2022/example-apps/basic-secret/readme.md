@@ -33,7 +33,7 @@ Lets create some secrets.
 
 ```
 kubectl -n vault exec -it vault-0 -- sh 
-vault secrets enable -path=secret/ kv
+vault secrets enable -path=secret/ kv2
 vault kv put secret/basic-secret/helloworld username=dbuser password=sUp3rS3cUr3P@ssw0rd
 ```
 

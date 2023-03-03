@@ -7,7 +7,7 @@ resource "vault_mount" "kvv2" {
 
 resource "vault_kv_secret_v2" "example" {
   mount               = vault_mount.kvv2.path
-  name                = "kv/dev/apps/service01"
+  name                = "dev/apps/service01"
   cas                 = 1
   delete_all_versions = true
   data_json = jsonencode(
