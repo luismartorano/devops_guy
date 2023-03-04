@@ -11,7 +11,7 @@ resource "vault_kubernetes_auth_backend_config" "example" {
   kubernetes_host        = var.kubernetes_host
   kubernetes_ca_cert     = base64decode(var.kubernetes_ca_cert)
   token_reviewer_jwt     = var.token_reviewer_jwt
-  issuer                 = "api"
+  #issuer                 = "api"
 
 }
 

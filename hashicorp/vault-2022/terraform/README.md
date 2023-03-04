@@ -40,16 +40,20 @@ export VAULT_ADDR=http://localhost:8200
 export VAULT_SKIP_VERIFY=true    //caso seja https, ele não verifica de modo seguro
 ```
 ```
-kubectl get secrets      //verificar e anotar o nome da secret, pois é ela que utilizaremos no próximo export (Obs.: caso tenha 
-um namespace, utilizar por ex. -n vault apoś o kubectl. No nosso caso, como utilizaei em modo local e instando vault via helm o valor é  sh.helm.release.v1.vault.v1
+kubectl get sa      //não esquecer de geral um sa -> nesse caso gerei o vauth-auth para o kubernetes
 ```
 ```
-export VAULT_SA_NAME=sh.helm.release.v1.vault.v1      //Para pegar o token jwt devemos entrar na maquina do vault via kubectl exec e utilizar o comando:
+export VAULT_SA_NAME=vault-auth  
+```
+
+Para pegar o token jwt devemos entrar na maquina do vault via kubectl exec e utilizar o comando:
 
 cat /var/run/secrets/kubernetes.io/serviceaccount/token
+
+Saia da máquina e cole o token sempre sem o '/' no final
+
 ```
-```
-export TF_VAR_token_reviewer_jwt=token sem o "/" no final
+export TF_VAR_token_reviewer_jwt=
 ```
 
 O CA_CERT do k8s
@@ -62,7 +66,9 @@ Para pegar o valor, devemos verificar dentro do vault. Como fizemos a primeira c
 ```
 export TF_VAR_kubernetes_host=
 ```
-3- Caso o terraform não tenha sido gerado, eu posso verificar esses valor realizando um terraform import. Caso ele tenha sido gerado, deletear o tfstate dele.
+
+3- Caso o terraform não tenha sido gerado, eu posso verificar esses valores realizando um terraform import. Caso ele tenha sido gerado, deletar o tfstate dele.
+Aqui eu consigo verificar se realmente os exports foram atribuidos as variáveis do terraform.
 
 ```
 terraform import vault_kubernetes_auth_backend_config.example auth/kubernetes/config
